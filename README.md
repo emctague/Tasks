@@ -7,6 +7,11 @@ any registered tasks.
 Tasks are automatically registered when initialized, and
 automatically de-registered when destroyed.
 
+The main benefit of the Task system is that individual objects
+that need to be updated constantly (e.g. those that watch pin values)
+can avoid forcing the developer to call an `update()` method each iteration.
+Rather, they can simply make their object extend `Task`.
+
 ## Usage
 
 ```cpp
