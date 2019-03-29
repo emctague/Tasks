@@ -55,6 +55,7 @@ the entire lifetime of the program.
 #include "Tasks.h"
 
 void setup () {
+    Serial.begin(9600);
     CallTask::create([]() -> void { Serial.println("Hello!"); });
 }
 
