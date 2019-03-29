@@ -54,9 +54,14 @@ the entire lifetime of the program.
 ```cpp
 #include "Tasks.h"
 
+void otherTask () {
+    Serial.println("Function task!");
+}
+
 void setup () {
     Serial.begin(9600);
-    CallTask::create([]() -> void { Serial.println("Hello!"); });
+    CallTask::create([]() -> void { Serial.println("Lambda Task!"); });
+    CallTask::create(otherTask);
 }
 
 void loop () {
@@ -64,7 +69,9 @@ void loop () {
 }
 
 // Output:
-// Hello!
-// Hello!
+// Lambda Task!
+// Function Task!
+// Lambda Task!
+// Function Task!
 // ...
 ```
