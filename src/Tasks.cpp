@@ -21,7 +21,12 @@ void _TaskManager::remove(int taskIndex) {
     tasks = (Task**)realloc(tasks, --taskCount * sizeof(Task*));
 }
 
-Task::Task() {
+Task::Task() : Task(0)
+{
+}
+
+Task::Task(uint32_t interval) : interval(interval), lastCall(0)
+{
     taskIndex = TaskManager.add(this);
 }
 
@@ -29,9 +34,17 @@ Task::~Task() {
     TaskManager.remove(taskIndex);
 }
 
+void Task::setTaskInterval(uint32_t newInterval) {
+    interval = newInterval;
+}
+
 void _TaskManager::update() {
-    for (int i = 0; i < taskCount; i++)
-        tasks[i]->update();
+    for (int i = 0; i < taskCount; i++) {
+        if (millis() - tasks[i]->lastCall >= tasks[i]->interval) {
+            tasks[i]->lastCall = millis();
+            tasks[i]->update();
+        }
+    }
 }
 
 CallTask::CallTask(void (*callback)()) : callback(callback)

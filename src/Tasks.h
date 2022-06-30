@@ -44,13 +44,15 @@ private:
 class Task {
 private:
     int taskIndex;
-
+    uint32_t interval;
+    uint32_t lastCall;
 protected:
     friend class _TaskManager;
     virtual void update() = 0;
-
+    void setTaskInterval(uint32_t);
 public:
     Task();
+    Task(uint32_t);
     ~Task();
 };
 
