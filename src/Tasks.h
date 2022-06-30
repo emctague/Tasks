@@ -39,6 +39,22 @@ private:
    class MyTask : public Task {
    protected:
        void update() override;
+   };
+
+   Set the interval like so:
+   class MyTask : public Task {
+       MyTask()
+          : Task(500) <- Set the interval in the constructor initializer list by instantiating base class `Task` with interval param.
+       {
+
+       }
+   }
+
+   Or:
+   class MyTask : public Task {
+       void f() {
+           setTaskInterval(500);
+       }
    }
  */
 class Task {
