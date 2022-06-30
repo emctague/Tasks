@@ -28,7 +28,6 @@ private:
     int add(Task* task);
 
     /* Remove a task from the task loop. */
-    friend class Task;
     void remove(int taskIndex);
 } TaskManager;
 
