@@ -75,3 +75,31 @@ void loop () {
 // Function Task!
 // ...
 ```
+
+### Task Intervals
+  Tasks can be called on an interval, 0 by default. This is so you can call a
+  task on a set interval such a polling a sensor once every 200 milliseconds.
+
+
+  *Set the interval like so:*
+```
+   class MyTask : public Task {
+       MyTask()
+          : Task(500)
+       {
+
+       }
+   }
+```
+
+  *Or:*
+```
+   class MyTask : public Task {
+       void f() {
+           setTaskInterval(500);
+       }
+   }
+```
+
+  the ```setTaskInterval``` method is specified as ```protected:``` so the
+  member can only be called within the class.
