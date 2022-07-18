@@ -28,7 +28,6 @@ private:
     int add(Task* task);
 
     /* Remove a task from the task loop. */
-    friend class Task;
     void remove(int taskIndex);
 } TaskManager;
 
@@ -40,18 +39,36 @@ private:
    class MyTask : public Task {
    protected:
        void update() override;
+   };
+
+   Set the interval like so:
+   class MyTask : public Task {
+       MyTask()
+          : Task(500) <- Set the interval in the constructor initializer list by instantiating base class `Task` with interval param.
+       {
+
+       }
+   }
+
+   Or:
+   class MyTask : public Task {
+       void f() {
+           setTaskInterval(500);
+       }
    }
  */
 class Task {
 private:
     int taskIndex;
-
+    uint32_t interval;
+    uint32_t lastCall;
 protected:
     friend class _TaskManager;
     virtual void update() = 0;
-
+    void setTaskInterval(uint32_t);
 public:
     Task();
+    Task(uint32_t);
     ~Task();
 };
 
